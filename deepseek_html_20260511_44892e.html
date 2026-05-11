@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Визитка · Стикер 😽 × Сакура · Dark Goth</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #0a0a0f;
+            background-image: radial-gradient(circle at 25% 40%, #1a0f1a 0%, #030103 95%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Poppins', 'Inter', system-ui, sans-serif;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Тёмная текстура */
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-radial-gradient(circle at 20% 30%, rgba(0,0,0,0.2) 0px, rgba(0,0,0,0.2) 2px, transparent 2px, transparent 8px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Падающие лепестки сакуры */
+        .petals {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .petal {
+            position: absolute;
+            background: radial-gradient(circle, #ffb7c5, #ff7b9e);
+            width: 14px;
+            height: 14px;
+            border-radius: 150% 0 150% 0;
+            opacity: 0.6;
+            filter: blur(0.5px);
+            box-shadow: 0 0 6px #ff5a8a;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(110vh) rotate(380deg);
+                opacity: 0;
+            }
+        }
+
+        /* ГЛАВНАЯ КАРТОЧКА */
+        .card {
+            position: relative;
+            z-index: 20;
+            max-width: 520px;
+            width: 100%;
+            background: rgba(8, 5, 12, 0.85);
+            backdrop-filter: blur(14px);
+            border-radius: 56px 48px 60px 44px;
+            border: 1px solid rgba(255, 100, 130, 0.5);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 90, 120, 0.3), 0 0 25px rgba(255, 50, 100, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 35px 55px rgba(0, 0, 0, 0.9), 0 0 0 2px #ff6f8f;
+        }
+
+        /* Верхняя зона со стикером и сакурой */
+        .hero {
+            padding: 30px 20px 25px;
+            background: radial-gradient(ellipse at 30% 40%, #1e1428, #050307);
+            text-align: center;
+            position: relative;
+            border-bottom: 2px solid #ff6b8b40;
+        }
+
+        /* Ветки сакуры сзади стикера */
+        .sakura-bg-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .branch {
+            position: absolute;
+            width: 180px;
+            height: 160px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path fill="none" stroke="%23ff88aa80" stroke-width="3" d="M10,160 Q40,100 80,75 Q110,55 130,40" /><path fill="none" stroke="%23ff88aa80" stroke-width="2" d="M80,75 Q70,45 90,25" /><path fill="none" stroke="%23ff88aa80" stroke-width="2" d="M100,60 Q125,40 150,50" /><circle cx="90" cy="25" r="7" fill="%23ffb7c5cc" /><circle cx="150" cy="50" r="6" fill="%23ff9eb0cc" /><circle cx="45" cy="115" r="5" fill="%23ffa5bbcc"/><circle cx="125" cy="45" r="5" fill="%23ff8caa"/></svg>') no-repeat;
+            background-size: contain;
+            opacity: 0.7;
+            bottom: 10px;
+            left: -20px;
+            filter: drop-shadow(0 0 4px #ff5a7a);
+        }
+
+        .branch-right {
+            left: auto;
+            right: -30px;
+            top: -10px;
+            transform: scaleX(-1);
+            width: 170px;
+            height: 150px;
+        }
+
+        /* СТИКЕР 😽 — крупный и красивый */
+        .sticker {
+            position: relative;
+            z-index: 15;
+            font-size: 120px;
+            margin: 0 auto 15px;
+            width: 160px;
+            height: 160px;
+            background: rgba(20, 10, 25, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+            border: 3px solid #ff6f8f;
+            box-shadow: 0 12px 28px black, 0 0 0 4px rgba(255, 100, 130, 0.3), 0 0 20px rgba(255, 80, 120, 0.5);
+            transition: 0.2s;
+            transform: scale(1);
+        }
+
+        .sticker:hover {
+            transform: scale(1.05) rotate(5deg);
+            filter: drop-shadow(0 0 12px #ff7e9e);
+        }
+
+        .cat-name {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffb7c5, #ff3b6f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 12px #ff235e;
+            letter-spacing: 1px;
+        }
+
+        .cat-tag {
+            display: inline-block;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            padding: 5px 18px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #ffbfcf;
+            margin-top: 12px;
+            border: 1px solid #ff5a7a;
+        }
+
+        /* контакты */
+        .info-block {
+            padding: 30px 24px 35px;
+            background: #07040be6;
+        }
+
+        .contact-line {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: #110d1c;
+            margin-bottom: 16px;
+            padding: 12px 18px;
+            border-radius: 80px;
+            border: 1px solid #2a1c2a;
+            transition: 0.2s;
+        }
+
+        .contact-line:hover {
+            background: #1e1530;
+            border-color: #ff6f8f;
+            transform: translateX(7px);
+        }
+
+        .icon {
+            font-size: 26px;
+            min-width: 44px;
+            text-align: center;
+        }
+
+        .contact-text {
+            flex: 1;
+        }
+
+        .label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #ff98b3;
+            font-weight: 600;
+        }
+
+        .value {
+            font-size: 16px;
+            font-weight: 500;
+            color: #f0eef8;
+            word-break: break-all;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 14px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px 0;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-dark-glow {
+            background: linear-gradient(95deg, #c2285a, #710e30);
+            color: white;
+            box-shadow: 0 6px 14px #c2285a60;
+            border: 1px solid #ff8aab;
+        }
+
+        .btn-dark-glow:hover {
+            transform: scale(0.96);
+            filter: brightness(1.08);
+            box-shadow: 0 0 12px #ff5a8a;
+        }
+
+        .btn-outline-pink {
+            background: transparent;
+            border: 1.5px solid #ff6f8f;
+            color: #ffbfcf;
+        }
+
+        .btn-outline-pink:hover {
+            background: #ff6f8f30;
+            border-color: #ff97b2;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 9px;
+            color: #5c3f4a;
+            letter-spacing: 1px;
+        }
+
+        /* тост */
+        .toast {
+            position: fixed;
+            bottom: 35px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #1e0e1ee0;
+            backdrop-filter: blur(16px);
+            padding: 12px 25px;
+            border-radius: 44px;
+            color: #ffc0d4;
+            font-weight: 600;
+            border: 1px solid #ff6f8f;
+            z-index: 300;
+            transition: 0.3s;
+            opacity: 0;
+            pointer-events: none;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        @media (max-width: 500px) {
+            .sticker {
+                font-size: 90px;
+                width: 130px;
+                height: 130px;
+            }
+            .value {
+                font-size: 13px;
+            }
+            .toast {
+                white-space: nowrap;
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="petals" id="petalsContainer"></div>
+<div class="noise"></div>
+
+<div class="card">
+    <div class="hero">
+        <div class="sakura-bg-layer">
+            <div class="branch"></div>
+            <div class="branch branch-right"></div>
+        </div>
+
+        <!-- СТИКЕР 😽 (целующий котик) -->
+        <div class="sticker">
+            😽
+        </div>
+        <div class="cat-name">KURO · 黒猫</div>
+        <div class="cat-tag">✧  cursed cat from the abyss  ✧</div>
+    </div>
+
+    <div class="info-block">
+        <div class="contact-line">
+            <div class="icon">🖤</div>
+            <div class="contact-text">
+                <div class="label">DARK TELEGRAM</div>
+                <div class="value">@kuro_yami_cat</div>
+            </div>
+        </div>
+        <div class="contact-line">
+            <div class="icon">✧</div>
+            <div class="contact-text">
+                <div class="label">EMAIL (только ритуалы)</div>
+                <div class="value">kuro.cursed@sakura.neko</div>
+            </div>
+        </div>
+        <div class="contact-line">
+            <div class="icon">🌙</div>
+            <div class="contact-text">
+                <div class="label">ПОРТАЛ / САКУРА ГРОТ</div>
+                <div class="value">neko-goth.crd.co / @bloody_sakura</div>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-dark-glow" id="copyBtn">🗡 копировать контакт 🗡</button>
+            <button class="btn btn-outline-pink" id="saveBtn">🌸 сохранить визитку</button>
+        </div>
+        <footer>😽 злой? нет — милый, но в готике 🖤🌸</footer>
+    </div>
+</div>
+
+<div id="toastMsg" class="toast">✨ скопировано в тёмный тост</div>
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script>
+    // сакура лепестки
+    function initPetals() {
+        const container = document.getElementById('petalsContainer');
+        const petalCount = 100;
+        for (let i = 0; i < petalCount; i++) {
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
+            const size = Math.random() * 12 + 7;
+            petal.style.width = `${size}px`;
+            petal.style.height = `${size * 1.1}px`;
+            petal.style.left = `${Math.random() * 100}%`;
+            petal.style.animationDuration = `${Math.random() * 8 + 5}s`;
+            petal.style.animationDelay = `${Math.random() * 15}s`;
+            petal.style.opacity = Math.random() * 0.6 + 0.2;
+            container.appendChild(petal);
+        }
+    }
+    initPetals();
+
+    // тост уведомление
+    const toast = document.getElementById('toastMsg');
+    function showMessage(text, isErr = false) {
+        toast.textContent = text || (isErr ? '❌ ритуал не удался' : '✔️ готово');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2100);
+    }
+
+    // копирование контактов
+    const copyBtn = document.getElementById('copyBtn');
+    copyBtn.addEventListener('click', () => {
+        const name = document.querySelector('.cat-name').innerText;
+        const tag = document.querySelector('.cat-tag').innerText;
+        const tgVal = document.querySelectorAll('.value')[0].innerText;
+        const emailVal = document.querySelectorAll('.value')[1].innerText;
+        const webVal = document.querySelectorAll('.value')[2].innerText;
+
+        const fullText = `😽 ${name} — ${tag}\n🖤 Telegram: ${tgVal}\n✉️ ${emailVal}\n🌙 ${webVal}\n🌸  стикер котик + сакура`;
+        navigator.clipboard.writeText(fullText).then(() => {
+            showMessage('📋 Контакты скопированы с 😽');
+        }).catch(() => showMessage('❌ ошибка тьмы', true));
+    });
+
+    // сохранение картинки визитки
+    const saveBtn = document.getElementById('saveBtn');
+    const cardEl = document.querySelector('.card');
+    saveBtn.addEventListener('click', async () => {
+        showMessage('🌸 создаю скриншот с сакурой...');
+        try {
+            const canvas = await html2canvas(cardEl, {
+                scale: 2.5,
+                backgroundColor: '#0a0510',
+                useCORS: true,
+                logging: false,
+                allowTaint: false
+            });
+            const link = document.createElement('a');
+            link.download = 'cat_sticker_sakura_card.png';
+            link.href = canvas.toDataURL();
+            link.click();
+            showMessage('✔️ визитка со стикером 😽 сохранена!');
+        } catch(e) {
+            console.log(e);
+            showMessage('⚠️ лепестки помешали', true);
+        }
+    });
+</script>
+</body>
+</html>
